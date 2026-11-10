@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Мета-теги -->
+    <title>ED DROWA — Оптові поставки дров фурами по Києву та області</title>
+    <meta name="description" content="Дрова оптом від 50 складометрів (одна фура). Тверді породи (дуб, граб, ясен) — 2 800 грн/скл.м. М'які породи (сосна, береза, осика) — 1 800 грн/скл.м. Офіційне походження з лісгоспу, завантаження під замір рулеткою.">
+
+    <!-- Шрифт Michroma та Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        milk: '#F8F5F0',       /* Молочний фон */
+                        milkDark: '#EFECE6',   /* Тон для карток */
+                        graphite: '#161615',   /* Глибокий графіт */
+                        forest: '#232D24',     /* Чорно-зелений еко */
+                        wood: '#825831'        /* Палена кора */
+                    },
+                    fontFamily: {
+                        michroma: ['Michroma', 'sans-serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .michroma-title {
+            font-family: 'Michroma', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .img-zoom {
+            transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .group:hover .img-zoom {
+            transform: scale(1.04);
+        }
+
+        /* Бічні плашки з фото, що виїжджають по боках при скролі */
+        .side-card-left {
+            transform: translateX(-140%);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .side-card-right {
+            transform: translateX(140%);
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .side-card-visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-milk text-graphite font-sans antialiased overflow-x-hidden selection:bg-forest selection:text-milk">
+
+    <!-- ЛІВА БІЧНА ПЛАШКА З (`image (21).webp`) -->
+    <div id="leftBadge" class="side-card-left fixed left-6 top-1/3 z-40 hidden 2xl:block w-64 bg-white/90 backdrop-blur-xl p-4 rounded-3xl shadow-2xl border border-graphite/10">
+        <img src="image (18).webp" alt="Ручне завантаження дров" class="w-full h-32 object-cover rounded-2xl mb-3 border border-graphite/10">
+        <div class="flex items-center gap-2 mb-1">
+            <span class="w-2 h-2 rounded-full bg-forest animate-ping"></span>
+            <span class="text-[9px] font-bold uppercase tracking-widest text-forest">Ручне завантаження</span>
+        </div>
+        <p class="text-xs font-medium text-graphite/80 leading-snug">Складаємо щільними рядами. Перевірка об'єму рулеткою при вас.</p>
+    </div>
+
+    <!-- ПРАВА БІЧНА ПЛАШКА З  (`image (3).webp`) -->
+    <div id="rightBadge" class="side-card-right fixed right-6 top-1/2 z-40 hidden 2xl:block w-64 bg-white/90 backdrop-blur-xl p-4 rounded-3xl shadow-2xl border border-graphite/10">
+        <img src="image (17).webp" alt="Доставка фурою" class="w-full h-32 object-cover rounded-2xl mb-3 border border-graphite/10">
+        <div class="flex items-center gap-2 mb-1">
+            <span class="w-2 h-2 rounded-full bg-wood animate-ping"></span>
+            <span class="text-[9px] font-bold uppercase tracking-widest text-wood">Логістика Київщина</span>
+        </div>
+        <p class="text-xs font-medium text-graphite/80 leading-snug mb-3">Відвантаження від 50 скл/м (фура). Доставка 3–4 дні.</p>
+        <a href="#order" class="block text-center bg-forest text-milk text-xs py-2.5 rounded-xl font-semibold tracking-wider hover:bg-wood transition-all duration-300">Погодити закупівлю</a>
+    </div>
+
+    <!-- ШАПКА САЙТУ -->
+    <header class="fixed w-full top-0 z-50 bg-milk/90 backdrop-blur-xl border-b border-graphite/10">
+        <div class="max-w-7xl mx-auto px-8 h-24 flex items-center justify-between">
+            <a href="#" class="michroma-title text-xl md:text-2xl font-bold tracking-[0.2em] text-graphite flex items-center gap-2">
+                ED<span class="text-wood font-normal">DROWA</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-10 text-[11px] font-semibold uppercase tracking-[0.2em] text-graphite/80">
+                <a href="#catalog" class="hover:text-wood transition-colors">Породи та ціни</a>
+                <a href="#reviews" class="hover:text-wood transition-colors">Відгуки 5.0</a>
+                <a href="#conditions" class="hover:text-wood transition-colors">Умови поставки</a>
+            </nav>
+            <div class="flex items-center gap-6">
+                <a href="tel:+38068 567 8254" class="hidden sm:block text-xs font-semibold tracking-wider hover:text-wood transition-colors">+38 (068) 567 82 54</a>
+                <a href="#order" class="bg-forest text-milk px-7 py-3 rounded-full text-[11px] font-semibold uppercase tracking-[0.15em] hover:bg-wood transition-all duration-300 shadow-md">
+                    Розрахувати фуру
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ПЕРШИЙ ЕКРАН: ВЕЛИКЕ ФОТО ЗВЕРХУ (`image (2)_2.webp`) -->
+    <section class="pt-32 pb-16 px-8 max-w-7xl mx-auto">
+        <div class="w-full h-[50vh] md:h-[65vh] rounded-[2.5rem] overflow-hidden shadow-2xl border border-graphite/10 relative group mb-12 reveal-up reveal-visible">
+            <img src="image (15).webp" alt="Оптові дрова з лісгоспу" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-10 left-10 right-10 text-white flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <div>
+                    <span class="inline-block bg-forest/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3">Офіційний лісгосп • Без гнилі та трухи</span>
+                    <h1 class="michroma-title text-2xl sm:text-4xl md:text-5xl font-bold tracking-wide">
+                        Дрова оптом фурами
+                    </h1>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 text-xs tracking-wider">
+                     Тільки опт від 50 складометрів
+                </div>
+            </div>
+        </div>
+
+        <!-- Текст під великим фото -->
+        <div class="grid md:grid-cols-12 gap-12 items-center reveal-up reveal-visible">
+            <div class="md:col-span-7 space-y-6">
+                <h2 class="michroma-title text-xl sm:text-2xl text-graphite tracking-wide">
+                    Постачання деревини для підприємств та котелень
+                </h2>
+                <p class="text-sm sm:text-base text-graphite/75 font-light leading-relaxed">
+                    Пропонуємо здорову тверду та м'яку деревину з офіційним походженням із лісгоспу по Києву та області. Складаємо вручну щільними рядами під замір рулеткою, надаємо повний пакет документів. Розрахунок готівкою або на рахунок ФОП.
+                </p>
+
+                <div class="p-4 rounded-2xl bg-wood/10 border border-wood/20 text-xs text-graphite font-medium tracking-wide">
+                     <strong>УВАГА:</strong> Роздрібні замовлення не приймаємо. Мінімальна партія — одна єврофура (від 50 скл/м).
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                    <a href="#order" class="bg-forest text-milk px-8 py-4 rounded-full text-[11px] font-semibold uppercase tracking-[0.15em] text-center hover:bg-wood transition-all duration-300 shadow-xl">
+                        Узгодити партію
+                    </a>
+                    <a href="#catalog" class="px-8 py-4 rounded-full text-[11px] font-semibold uppercase tracking-[0.15em] text-center border border-graphite/20 hover:border-graphite transition-all duration-300">
+                        Дивитися ціни
+                    </a>
+                </div>
+            </div>
+
+            <!-- Короткий блок відгуків одразу на початку під фото -->
+            <div class="md:col-span-5 space-y-4">
+                <div class="bg-white p-5 rounded-3xl shadow-xl border border-graphite/10">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="text-wood text-xs tracking-widest">★★★★★</div>
+                        <span class="text-[9px] bg-milkDark px-2 py-0.5 rounded font-bold text-forest uppercase">Послуга відповідає опису</span>
+                    </div>
+                    <p class="text-xs text-graphite/80 italic mb-1 font-light">«Дрова без трухи, рівно порізані»</p>
+                    <p class="text-[10px] text-graphite/50 font-bold uppercase tracking-wider">Анюта 30 • 08.11.2026</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl shadow-xl border border-graphite/10">
+                    <div class="flex justify-between items-center mb-1">
+                        <div class="text-wood text-xs tracking-widest">★★★★★</div>
+                        <span class="text-[9px] bg-milkDark px-2 py-0.5 rounded font-bold text-forest uppercase">Приємна ціна</span>
+                    </div>
+                    <p class="text-xs text-graphite/80 italic mb-1 font-light">«Якісні дрова, дякую!»</p>
+                    <p class="text-[10px] text-graphite/50 font-bold uppercase tracking-wider">Горбун ліна 39а • 05.11.2026</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК ПЕЙДЖИНГУ (Переваги) з  фото -->
+    <section class="py-16 bg-milkDark/50 border-y border-graphite/10 px-8">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-graphite/10 flex gap-6 items-center hover:shadow-xl transition-all duration-500 group">
+                <img src="image (12).webp" alt="Укладка дров" class="w-24 h-24 rounded-2xl object-cover img-zoom shrink-0 border border-graphite/10">
+                <div>
+                    <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-wood">Чесний об'єм</span>
+                    <h3 class="text-lg font-bold text-graphite mt-1 tracking-wide">Укладка вручну</h3>
+                    <p class="text-xs text-graphite/70 mt-1 font-light leading-relaxed">Складаємо дрова щільними рядами без трухи. Вимірюємо об'єм рулеткою під час завантаження.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-graphite/10 flex gap-6 items-center hover:shadow-xl transition-all duration-500 group">
+                <img src="image (20).webp" alt="Доставка по Києву" class="w-24 h-24 rounded-2xl object-cover img-zoom shrink-0 border border-graphite/10">
+                <div>
+                    <span class="text-[9px] font-bold uppercase tracking-[0.2em] text-forest">Доставка 3–4 дні</span>
+                    <h3 class="text-lg font-bold text-graphite mt-1 tracking-wide">Київ та область</h3>
+                    <p class="text-xs text-graphite/70 mt-1 font-light leading-relaxed">Перевезення розраховуємо за вашим напрямком. Можлива тентована машина та розвантаження.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КАТАЛОГ (Ціни та породи) -->
+    <section id="catalog" class="py-28 px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal-up">
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-wood">Асортимент дров</span>
+                <h2 class="michroma-title text-2xl sm:text-4xl font-bold mt-3 tracking-wide">Оптові ціни за складометр</h2>
+                <p class="text-sm text-graphite/70 mt-4 font-light">Пропонуємо деревину з лісгоспу під будь-які потреби підприємств, баз та котелень.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                <!-- Тверді породи -->
+                <div class="bg-white rounded-[2.5rem] overflow-hidden border border-graphite/10 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between group">
+                    <div>
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="image (10).webp" alt="Дуб граб ясен" class="w-full h-full object-cover img-zoom">
+                            <span class="absolute top-6 left-6 bg-forest text-milk text-[10px] px-4 py-2 rounded-full font-semibold uppercase tracking-[0.15em]">Тверді породи</span>
+                        </div>
+                        <div class="p-10">
+                            <div class="flex justify-between items-baseline mb-3">
+                                <h3 class="text-2xl font-bold tracking-wide">Дуб, Граб, Ясен</h3>
+                                <span class="text-xl font-bold text-wood">2 800 ₴ <span class="text-xs font-sans text-graphite/60 font-normal">/ скл.м</span></span>
+                            </div>
+                            <p class="text-xs text-graphite/60 mb-8 font-light leading-relaxed">Здорова деревина з високою тепловіддачею для котелень та баз.</p>
+                            
+                            <div class="space-y-3 text-xs text-graphite/80 border-t border-graphite/10 pt-6 font-light">
+                                <p class="font-bold text-graphite uppercase tracking-[0.15em] text-[10px]">Доступні формати:</p>
+                                <ul class="space-y-2 list-disc list-inside text-graphite/70">
+                                    <li>Метрові круглі дрова (кругляк)</li>
+                                    <li>Чурка завдовжки 35–40 см</li>
+                                    <li>Колоті дрова високої якості</li>
+                                    <li>Порізка на іншу довжину (за погодженням)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-10 pt-0">
+                        <a href="#order" class="block w-full py-4 rounded-2xl bg-forest text-milk text-center text-[11px] font-semibold uppercase tracking-[0.15em] hover:bg-wood transition-all duration-300">Замовити фуру (50 скл)</a>
+                    </div>
+                </div>
+
+                <!-- М'які породи -->
+                <div class="bg-white rounded-[2.5rem] overflow-hidden border border-graphite/10 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col justify-between group">
+                    <div>
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="image (2).webp" alt="Сосна береза осика" class="w-full h-full object-cover img-zoom">
+                            <span class="absolute top-6 left-6 bg-wood text-milk text-[10px] px-4 py-2 rounded-full font-semibold uppercase tracking-[0.15em]">М'які породи</span>
+                        </div>
+                        <div class="p-10">
+                            <div class="flex justify-between items-baseline mb-3">
+                                <h3 class="text-2xl font-bold tracking-wide">Сосна, Береза, Осика</h3>
+                                <span class="text-xl font-bold text-wood">1 800 ₴ <span class="text-xs font-sans text-graphite/60 font-normal">/ скл.м</span></span>
+                            </div>
+                            <p class="text-xs text-graphite/60 mb-8 font-light leading-relaxed">Ідеальний варіант для швидкого розпалу, виробництв та оптових баз.</p>
+                            
+                            <div class="space-y-3 text-xs text-graphite/80 border-t border-graphite/10 pt-6 font-light">
+                                <p class="font-bold text-graphite uppercase tracking-[0.15em] text-[10px]">Доступні формати:</p>
+                                <ul class="space-y-2 list-disc list-inside text-graphite/70">
+                                    <li>Метровка</li>
+                                    <li>Чурка 35–40 см</li>
+                                    <li>Порізка під потрібну довжину (за доплату)</li>
+                                    <li>Без трухи та гнилі</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-10 pt-0">
+                        <a href="#order" class="block w-full py-4 rounded-2xl bg-forest text-milk text-center text-[11px] font-semibold uppercase tracking-[0.15em] hover:bg-wood transition-all duration-300">Замовити фуру (50 скл)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- СЕКЦІЯ ВІДГУКІВ -->
+    <section id="reviews" class="py-24 bg-milkDark/40 border-y border-graphite/10 px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-xl mx-auto mb-20 reveal-up">
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-wood">Репутація 5.0 з 5</span>
+                <h2 class="michroma-title text-2xl sm:text-4xl font-bold mt-3 tracking-wide">Відгуки покупців</h2>
+                <p class="text-xs text-graphite/60 mt-2 uppercase tracking-[0.2em] font-semibold">Реальні оцінки з OLX</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Відгук 1 -->
+                <div class="bg-white p-10 rounded-[2.5rem] border border-graphite/10 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="text-wood text-xs tracking-widest">★★★★★</div>
+                            <span class="text-[9px] bg-milkDark px-3 py-1 rounded-md font-bold text-forest uppercase tracking-wider">Послуга відповідає опису</span>
+                        </div>
+                        <p class="text-sm text-graphite/80 italic leading-relaxed mb-6 font-light">
+                            «Дрова без трухи, рівно порізані»
+                        </p>
+                    </div>
+                    <div class="border-t border-graphite/10 pt-6">
+                        <p class="font-bold text-sm tracking-wide">Анюта 30</p>
+                        <p class="text-[10px] text-graphite/50 tracking-wider">08.11.2026</p>
+                    </div>
+                </div>
+
+                <!-- Відгук 2 -->
+                <div class="bg-white p-10 rounded-[2.5rem] border border-graphite/10 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="text-wood text-xs tracking-widest">★★★★★</div>
+                            <span class="text-[9px] bg-milkDark px-3 py-1 rounded-md font-bold text-forest uppercase tracking-wider">Приємна ціна</span>
+                        </div>
+                        <p class="text-sm text-graphite/80 italic leading-relaxed mb-6 font-light">
+                            «Якісні дрова, дякую!»
+                        </p>
+                    </div>
+                    <div class="border-t border-graphite/10 pt-6">
+                        <p class="font-bold text-sm tracking-wide">Горбун ліна 39а</p>
+                        <p class="text-[10px] text-graphite/50 tracking-wider">05.11.2026</p>
+                    </div>
+                </div>
+
+                <!-- Відгук 3 -->
+                <div class="bg-white p-10 rounded-[2.5rem] border border-graphite/10 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-center mb-6">
+                            <div class="text-wood text-xs tracking-widest">★★★★★</div>
+                            <div class="flex gap-1">
+                                <span class="text-[9px] bg-milkDark px-2 py-1 rounded font-bold text-forest uppercase">Професіонал</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-graphite/80 italic leading-relaxed mb-6 font-light">
+                            «Швидке узгодження замовлення, якісна сировина та професійний підхід до оптової партії.»
+                        </p>
+                    </div>
+                    <div class="border-t border-graphite/10 pt-6">
+                        <p class="font-bold text-sm tracking-wide">Эдвард</p>
+                        <p class="text-[10px] text-graphite/50 tracking-wider">14.10.2026</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- УМОВИ ПОСТАВКИ -->
+    <section id="conditions" class="py-24 bg-forest text-milk px-8">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <span class="text-[10px] uppercase tracking-[0.25em] text-wood font-bold">Надійність</span>
+                <h2 class="michroma-title text-2xl font-bold mt-3 tracking-wide leading-tight">Умови роботи з нами</h2>
+            </div>
+            <div class="md:col-span-3 grid sm:grid-cols-3 gap-10">
+                <div class="border-l border-milk/20 pl-6">
+                    <span class="text-2xl text-wood font-bold">50 скл</span>
+                    <h4 class="text-base font-semibold mt-3 tracking-wide">Тільки опт</h4>
+                    <p class="text-xs text-milk/70 mt-2 font-light leading-relaxed">Відвантажуємо від однієї фури. Роздрібні замовлення не приймаємо.</p>
+                </div>
+                <div class="border-l border-milk/20 pl-6">
+                    <span class="text-2xl text-wood font-bold">Рулетка</span>
+                    <h4 class="text-base font-semibold mt-3 tracking-wide">Точний контроль</h4>
+                    <p class="text-xs text-milk/70 mt-2 font-light leading-relaxed">Укладання вручну щільними рядами. Завантаження проводиться під замір рулеткою.</p>
+                </div>
+                <div class="border-l border-milk/20 pl-6">
+                    <span class="text-2xl text-wood font-bold">ФОП</span>
+                    <h4 class="text-base font-semibold mt-3 tracking-wide">Зручна оплата</h4>
+                    <p class="text-xs text-milk/70 mt-2 font-light leading-relaxed">Надаємо офіційні документи. Розрахунок готівкою або на рахунок ФОП.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФОРМА ЗАМОВЛЕННЯ -->
+    <section id="order" class="py-28 px-8 bg-milkDark">
+        <div class="max-w-5xl mx-auto bg-white rounded-[3rem] p-10 sm:p-16 shadow-2xl border border-graphite/10 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="text-[10px] font-bold uppercase tracking-[0.25em] text-forest">Прямий зв'язок</span>
+                <h2 class="michroma-title text-xl sm:text-3xl font-bold mt-3 tracking-wide">Уточнити наявність та замовити</h2>
+                <p class="text-xs sm:text-sm text-graphite/70 mt-4 font-light leading-relaxed">
+                    Плануєте закупівлю дров для котельні чи підприємства? Зателефонуйте або повідомте потрібну породу, розмір та місце розвантаження — розрахуємо вартість фури.
+                </p>
+                <div class="mt-8 space-y-3 text-sm font-medium">
+                    <p>📞 Телефон: <a href="tel:+38068 567 8254" class="text-wood hover:underline font-semibold">+38 (068) 567 82 54</a></p>
+                    <p class="text-xs text-graphite/60 font-light">📍 Доставка: Київ та Київська область (орієнтовний строк 3–4 дні)</p>
+                </div>
+            </div>
+
+            <form onsubmit="event.preventDefault(); alert('Дякуємо! Очікуйте на дзвінок логіста.');" class="space-y-5">
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-[0.2em] text-graphite/70 mb-2">Ваше ім'я або підприємство</label>
+                    <input type="text" required placeholder="Наприклад: База або котельня" class="w-full px-5 py-4 rounded-2xl bg-milk border border-graphite/15 text-xs focus:outline-none focus:border-forest transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-[0.2em] text-graphite/70 mb-2">Номер телефону</label>
+                    <input type="tel" required placeholder="+38 (068) 567 82 54" class="w-full px-5 py-4 rounded-2xl bg-milk border border-graphite/15 text-xs focus:outline-none focus:border-forest transition-colors">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-[0.2em] text-graphite/70 mb-2">Порода та населений пункт</label>
+                    <input type="text" placeholder="Наприклад: Дуб, 50 скл, Біла Церква" class="w-full px-5 py-4 rounded-2xl bg-milk border border-graphite/15 text-xs focus:outline-none focus:border-forest transition-colors">
+                </div>
+                <button type="submit" class="w-full bg-forest text-milk py-4 rounded-2xl text-[11px] font-semibold uppercase tracking-[0.15em] hover:bg-wood transition-all duration-300 shadow-xl">
+                    Узгодити оптову закупівлю
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ФУТЕР -->
+    <footer class="py-12 px-8 border-t border-graphite/10 text-xs text-graphite/60">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="font-medium tracking-wide">
+                <span class="michroma-title text-lg font-bold text-graphite mr-2 tracking-[0.25em]">ED<span class="text-wood font-normal">DROWA</span></span>
+                © 2026 Продаж дров оптом фурами. Київ та область.
+            </div>
+            <div>
+                Дизайн та розробка під ключ — <a href="#" class="text-graphite font-semibold underline decoration-wood underline-offset-4 hover:text-wood transition-colors">Yuks Digital</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- СКРИПТИ ДЛЯ АНІМАЦІЙ ТА БІЧНИХ ПЛАШОК -->
+    <script>
+        const leftBadge = document.getElementById('leftBadge');
+        const rightBadge = document.getElementById('rightBadge');
+        const revealElements = document.querySelectorAll('.reveal-up');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+
+            // Виїзд бічних плашок при скролі
+            if (scrollY > 200 && scrollY < 2200) {
+                leftBadge.classList.add('side-card-visible');
+                rightBadge.classList.add('side-card-visible');
+            } else {
+                leftBadge.classList.remove('side-card-visible');
+                rightBadge.classList.remove('side-card-visible');
+            }
+
+            // Плавна поява елементів
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    el.classList.add('reveal-visible');
+                }
+            });
+        });
+        
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
